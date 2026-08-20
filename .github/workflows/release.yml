@@ -33,18 +33,18 @@ jobs:
         run: go get -v
 
       - name: Build Cli
-        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -tags "static cli" -ldflags "-s -w -X 'vencordinstaller/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencordinstaller/buildinfo.InstallerTag=${{ github.ref_name }}'" -o VencordInstallerCli-linux
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -tags "static cli" -ldflags "-s -w" -o Dev33nzyCli-linux
 
       - name: Update executable
         run: |
-          chmod +x VencordInstallerCli-linux
+          chmod +x Dev33nzyCli-linux
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: VencordInstaller-linux
+          name: Dev33nzy-linux
           path: |
-            VencordInstallerCli-linux
+            Dev33nzyCli-linux
 
 
   build-mac:
@@ -80,26 +80,26 @@ jobs:
         run: go get -v
 
       - name: Build
-        run: CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build -v -tags static -ldflags "-s -w -X 'vencordinstaller/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencordinstaller/buildinfo.InstallerTag=${{ github.ref_name }}'" -o VencordInstaller
+        run: CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build -v -tags static -ldflags "-s -w" -o Dev33nzy
 
       - name: Update executable
         run: |
-          chmod +x VencordInstaller
+          chmod +x Dev33nzy
 
       - name: Generate MacOS bundle
         run: |
-          mkdir -p VencordInstaller.app/Contents/MacOS
-          mkdir -p VencordInstaller.app/Contents/Resources
-          cp macos/Info.plist VencordInstaller.app/Contents/Info.plist
-          mv VencordInstaller VencordInstaller.app/Contents/MacOS/VencordInstaller
-          cp macos/icon.icns VencordInstaller.app/Contents/Resources/icon.icns
-          zip -r VencordInstaller.MacOS.zip VencordInstaller.app
+          mkdir -p Dev33nzy.app/Contents/MacOS
+          mkdir -p Dev33nzy.app/Contents/Resources
+          cp macos/Info.plist Dev33nzy.app/Contents/Info.plist
+          mv Dev33nzy Dev33nzy.app/Contents/MacOS/Dev33nzy
+          cp macos/icon.icns Dev33nzy.app/Contents/Resources/icon.icns
+          zip -r Dev33nzy.MacOS.zip Dev33nzy.app
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: VencordInstaller-macos
-          path: VencordInstaller.MacOS.zip
+          name: Dev33nzy-macos
+          path: Dev33nzy.MacOS.zip
 
 
   build-windows:
@@ -147,22 +147,22 @@ jobs:
           export GOROOT=/mingw64/lib/go
           export GOPATH=/mingw64
           go-winres make --product-version "git-tag"
-          CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -v -tags static -ldflags "-s -w -H=windowsgui -extldflags=-static -X 'vencordinstaller/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencordinstaller/buildinfo.InstallerTag=${{ github.ref_name }}'" -o VencordInstaller.exe
+          CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -v -tags static -ldflags "-s -w -H=windowsgui -extldflags=-static" -o Dev33nzy.exe
 
       - name: Build i386 Cli
         shell: msys2 {0}
         run: |
           export GOROOT=/mingw64/lib/go
           export GOPATH=/mingw64
-          CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -v -tags "static cli" -ldflags "-s -w -extldflags=-static -X 'vencordinstaller/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencordinstaller/buildinfo.InstallerTag=${{ github.ref_name }}'" -o VencordInstallerCli.exe
+          CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -v -tags "static cli" -ldflags "-s -w -extldflags=-static" -o Dev33nzyCli.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: VencordInstaller-windows
+          name: Dev33nzy-windows
           path: |
-            VencordInstaller.exe
-            VencordInstallerCli.exe
+            Dev33nzy.exe
+            Dev33nzyCli.exe
 
 
   release:
@@ -175,17 +175,17 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: VencordInstaller-linux
+          name: Dev33nzy-linux
           path: linux
 
       - uses: actions/download-artifact@v4
-        with:
-          name: VencordInstaller-macos
+          with:
+          name: Dev33nzy-macos
           path: macos
 
       - uses: actions/download-artifact@v4
         with:
-          name: VencordInstaller-windows
+          name: Dev33nzy-windows
           path: windows
 
       - name: Create the release
@@ -198,6 +198,6 @@ jobs:
           prerelease: false
           draft: false
           files: |
-            linux/VencordInstallerCli-linux
-            macos/VencordInstaller.MacOS.zip
-            windows/VencordInstalle*.exe
+            linux/Dev33nzyCli-linux
+            macos/Dev33nzy.MacOS.zip
+            windows/Dev33nzy*.exe
