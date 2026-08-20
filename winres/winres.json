@@ -1,35 +1,18 @@
 {
-  "RT_GROUP_ICON": {
-    "APP": {
-      "0000": [
-        "icon.png"
-      ]
+  "fixed": {
+    "file_version": "1.0.0.0"
+  },
+  "info": {
+    "0409": {
+      "FileDescription": "Dev 33nzy Installer",
+      "FileVersion": "1.0.0",
+      "LegalCopyright": "© 2026 33nzy",
+      "ProductName": "Dev 33nzy",
+      "ProductVersion": "1.0.0"
     }
   },
-  "RT_MANIFEST": {
-    "#1": {
-      "0409": {
-        "description": "An Installer for the Vencord Discord Mod",
-        "minimum-os": "win10",
-        "execution-level": "as invoker",
-        "dpi-awareness": "system"
-      }
-    }
+  "manifest": {
+    "compatibility": "win10"
   },
-  "RT_VERSION": {
-    "#1": {
-      "0000": {
-        "info": {
-          "0409": {
-            "Comments": "Comments",
-            "CompanyName": "Vencord",
-            "FileDescription": "Vencord Installer",
-            "LegalCopyright": "© 2023 Vendicated and Contributors - GPL3.0",
-            "ProductName": "Vencord Installer",
-            "ProductVersion": ""
-          }
-        }
-      }
-    }
-  }
+  "icon": "icon.ico"
 }
